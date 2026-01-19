@@ -1,6 +1,7 @@
 package com.damiansprojekt.dreamshops.service.product;
 
 import com.damiansprojekt.dreamshops.model.Product;
+import com.damiansprojekt.dreamshops.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
+    private ProductRepository productRepository;
+
     @Override
     public Product addProduct(Product product) {
         return null;
