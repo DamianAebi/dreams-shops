@@ -1,6 +1,6 @@
 package com.damiansprojekt.dreamshops.service.product;
 
-import com.damiansprojekt.dreamshops.exception.ProductNotFoundException;
+import com.damiansprojekt.dreamshops.exception.ResourceNotFoundException;
 import com.damiansprojekt.dreamshops.model.Category;
 import com.damiansprojekt.dreamshops.model.Product;
 import com.damiansprojekt.dreamshops.repository.CategoryRepository;
@@ -44,13 +44,13 @@ public class ProductService implements IProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product no found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product no found!"));
     }
 
     @Override
     public void deleteProductById(Long id) {
         productRepository.findById(id).ifPresentOrElse(productRepository::delete, () -> {
-            throw new ProductNotFoundException("Product not found!");
+            throw new ResourceNotFoundException("Product not found!");
         });
     }
 
@@ -59,7 +59,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(id)
                 .map(existingProduct -> updateExistingProduct(existingProduct, product))
                 .map(productRepository::save)
-                .orElseThrow(() -> new ProductNotFoundException("Product no found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product no found!"));
     }
 
     private Product updateExistingProduct(Product existingProduct, UpdateProductRequest request) {
