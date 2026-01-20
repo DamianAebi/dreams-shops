@@ -1,5 +1,6 @@
 package com.damiansprojekt.dreamshops.service.product;
 
+import com.damiansprojekt.dreamshops.exception.ProductNotFoundException;
 import com.damiansprojekt.dreamshops.model.Product;
 import com.damiansprojekt.dreamshops.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,15 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return null;
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product no found!"));
     }
 
     @Override
     public void deleteProductById(Long id) {
-
+        productRepository.findById(id).ifPresentOrElse(productRepository::delete, () -> {
+            throw new ProductNotFoundException("Product not found!");
+        });
     }
 
     @Override
@@ -38,8 +42,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(Long categoryId) {
-        return List.of();
+    public List<Product> getProductsByCategory(String categoryName) {
+        return productRepository.findByCategory(categoryName);
     }
 
     @Override

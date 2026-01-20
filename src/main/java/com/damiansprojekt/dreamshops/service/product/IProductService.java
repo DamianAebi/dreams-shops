@@ -10,6 +10,6 @@ public interface IProductService {
     void deleteProductById(Long id);
     void updateProductById(Product product, Long id);
     List<Product> getAllProducts();
-    List<Product> getProductsByCategory(Long categoryId);
+    List<Product> getProductsByCategory(String categoryName);
     Long countProductsMyBrandAndName (String brand, String name);
 }
