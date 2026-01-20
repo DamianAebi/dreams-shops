@@ -12,5 +12,5 @@ public interface IProductService {
     void updateProductById(Product product, Long id);
     List<Product> getAllProducts();
     List<Product> getProductsByCategory(String categoryName);
-    Long countProductsMyBrandAndName (String brand, String name);
+    Long countProductsByBrandAndName(String brand, String name);
 }
