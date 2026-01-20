@@ -6,6 +6,7 @@ import com.damiansprojekt.dreamshops.model.Product;
 import com.damiansprojekt.dreamshops.repository.CategoryRepository;
 import com.damiansprojekt.dreamshops.repository.ProductRepository;
 import com.damiansprojekt.dreamshops.request.AddProductRequest;
+import com.damiansprojekt.dreamshops.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,8 +55,23 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void updateProductById(Product product, Long id) {
+    public Product updateProductById(UpdateProductRequest product, Long id) {
+        return productRepository.findById(id)
+                .map(existingProduct -> updateExistingProduct(existingProduct, product))
+                .map(productRepository::save)
+                .orElseThrow(() -> new ProductNotFoundException("Product no found!"));
+    }
 
+    private Product updateExistingProduct(Product existingProduct, UpdateProductRequest request) {
+        existingProduct.setName(request.getName());
+        existingProduct.setBrand(request.getBrand());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setInventory(request.getInventory());
+        existingProduct.setDescription(request.getDescription());
+
+        Category category = categoryRepository.findByName(request.getCategory().getName());
+        existingProduct.setCategory(category);
+        return existingProduct;
     }
 
     @Override
@@ -64,8 +80,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(String name) {
-        return productRepository.findByCategory_Name(name);
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.findByCategory_Name(category);
     }
 
     @Override
