@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCategory_Name(String name);
 
-    Long countByBrandAndName();
+    Long countByBrandAndName(String brand, String name);
 }
