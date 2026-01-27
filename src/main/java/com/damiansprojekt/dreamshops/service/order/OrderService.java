@@ -7,6 +7,7 @@ import com.damiansprojekt.dreamshops.model.Product;
 import com.damiansprojekt.dreamshops.repository.OrderRepository;
 import com.damiansprojekt.dreamshops.repository.ProductRepository;
 import com.damiansprojekt.dreamshops.request.AddOrderRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class OrderService implements IOrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
+    @Transactional
     @Override
     public Order placeOrder(AddOrderRequest request) {
         Order order = createOrder(request);
@@ -54,6 +56,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> getUserOrders(Long userId) {
-        return List.of();
+        return orderRepository.findAll();
     }
 }
