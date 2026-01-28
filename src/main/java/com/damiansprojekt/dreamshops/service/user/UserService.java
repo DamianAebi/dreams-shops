@@ -22,7 +22,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createUser(AddUserRequest request, Long userId) {
+    public User createUser(AddUserRequest request) {
         return Optional.of(request)
                 .filter(user -> !userRepository.existsByEmail(request.getEmail()))
                 .map(req -> {

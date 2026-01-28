@@ -5,6 +5,6 @@ import com.damiansprojekt.dreamshops.request.AddUserRequest;
 
 public interface IUserService {
     User getUserById(Long userId);
-    User createUser(AddUserRequest request, Long userId);
+    User createUser(AddUserRequest request);
     void deleteUser(Long userId);
 }
