@@ -19,7 +19,7 @@ public class OrderController {
     private final IOrderService orderService;
 
     @PostMapping("/order")
-    public ResponseEntity<ApiResponse> createOrder(@RequestParam AddOrderRequest request) {
+    public ResponseEntity<ApiResponse> createOrder(@RequestBody AddOrderRequest request) {
         try {
             Order order =  orderService.placeOrder(request);
             return ResponseEntity.ok(new ApiResponse("Item Order Success!", order));
